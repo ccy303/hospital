@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  /* font-family: SimSun, Arial, "Arial Narrow", HELVETICA !important; */
+  /* font-family: "微软雅黑" !important; */
+  font-family: arial, sans-serif, 宋体 !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.ant-layout-content {
+  margin: 0 !important;
+  padding: 84px 20px 20px;
+}
+
+@media print {
+  p {
+    background: #fff !important;
+  }
+  .ant-layout-header {
+    display: none !important;
+  }
+  .ant-layout-content {
+    padding: 0 !important;
+  }
+  .ant-tabs-nav-scroll {
+    display: none !important;
+  }
+  .ant-tabs-bar {
+    display: none !important;
+  }
+  .operation {
+    display: none !important;
+  }
+  button {
+    display: none !important;
+  }
+  .ant-calendar-picker i {
+    display: none !important;
+  }
+  body > div:not(#root) {
+    display: none !important;
+  }
+  .nutrition-screening .world .world-box .table tr td .ant-checkbox-checked .ant-checkbox-inner {
+    background: #000 !important;
+    border-color: #000 !important;
+    border: 8px solid #000 !important;
+  }
+  .nutrition-screening .world .world-box .table tr td .ant-checkbox-checked .ant-checkbox-inner::after {
+    left: -4px !important;
+  }
+  .treatment-sheet .world .header .ant-checkbox-checked .ant-checkbox-inner::after {
+    left: -4px !important;
+  }
+  .treatment-sheet .world .header .ant-checkbox-checked .ant-checkbox-inner {
+    background: #000 !important;
+    border-color: #000 !important;
+    border: 8px solid #000 !important;
+  }
+  .treatment-sheet .world .excel .table .line {
+    -webkit-print-color-adjust: exact !important;
+  }
+}

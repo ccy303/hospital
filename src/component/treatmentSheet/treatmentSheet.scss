@@ -1,0 +1,1088 @@
+.treatment-sheet {
+  width: 100%;
+  .operation {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    .search {
+      width: 250px;
+      margin-right: 10px;
+    }
+  }
+  .world {
+    width: 793px;
+    min-height: 1122px;
+    text-align: center;
+    color: #000;
+    padding: 20px 20px 0;
+    background: #fff;
+    margin: 0 auto;
+    position: relative;
+    .ant-calendar-picker-icon {
+      display: none;
+    }
+    .ant-input {
+      padding: 0;
+      border: none;
+      font-size: 13px;
+      text-align: center;
+      height: auto;
+    }
+    p {
+      margin: 0;
+    }
+    .title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .header {
+      p {
+        text-align: center;
+        // border: none !important;
+      }
+      .ant-checkbox-checked .ant-checkbox-inner {
+        background-color: #000;
+        border-color: #000;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        text-align: left;
+        font-size: 15px;
+      }
+
+      .row-1 {
+        table {
+          tr {
+            td {
+              color: #000;
+              overflow: hidden;
+              padding: 0;
+              p {
+                text-align: center;
+                margin-left: 3em;
+                height: 20px;
+                line-height: 20px;
+              }
+            }
+            #name,
+            #sex,
+            #age,
+            #department,
+            #bedNum,
+            #hospitalizationNum {
+              position: relative;
+              text-align: left;
+            }
+
+            #department::before {
+              content: "科室:";
+              font-weight: bold;
+              top: 0;
+              display: inline-block;
+              position: absolute;
+              left: 5px;
+              text-indent: 0;
+              word-break: keep-all;
+            }
+
+            #bedNum::before {
+              content: "床号:";
+              font-weight: bold;
+              top: 0;
+              display: inline-block;
+              position: absolute;
+              left: 5px;
+              text-indent: 0;
+              word-break: keep-all;
+            }
+
+            #hospitalizationNum::before {
+              content: "住院号:";
+              font-weight: bold;
+              top: 0;
+              display: inline-block;
+              position: absolute;
+              left: 5px;
+              text-indent: 0;
+              word-break: keep-all;
+            }
+
+            #name::before {
+              content: "姓名:";
+              font-weight: bold;
+              top: 0;
+              display: inline-block;
+              position: absolute;
+              left: 5px;
+              text-indent: 0;
+              word-break: keep-all;
+            }
+
+            #sex::before {
+              content: "性别:";
+              font-weight: bold;
+              top: 0;
+              display: inline-block;
+              position: absolute;
+              left: 5px;
+              text-indent: 0;
+              word-break: keep-all;
+            }
+
+            #age::before {
+              content: "年龄:";
+              font-weight: bold;
+              top: 0;
+              display: inline-block;
+              position: absolute;
+              left: 5px;
+              text-indent: 0;
+              word-break: keep-all;
+            }
+          }
+        }
+      }
+
+      .row-2 {
+        #mainDiagnosis {
+          position: relative;
+        }
+
+        p {
+          line-height: 20px;
+          margin-left: 4.5em;
+          // border-bottom: 1px solid #000;
+        }
+
+        #mainDiagnosis::before {
+          content: "主要诊断:";
+          font-weight: bold;
+          top: 2px;
+          display: inline-block;
+          position: absolute;
+          left: 5px;
+          text-indent: 0;
+          word-break: keep-all;
+        }
+      }
+
+      .row-3 {
+        #parenteralNutrition {
+          position: relative;
+          width: 40%;
+        }
+
+        p {
+          height: 20px;
+          line-height: 20px;
+          margin-left: 4.5em;
+        }
+
+        #parenteralNutrition::before {
+          content: "肠外营养:";
+          font-weight: bold;
+          top: 2px;
+          display: inline-block;
+          position: absolute;
+          left: 5px;
+          text-indent: 0;
+          word-break: keep-all;
+        }
+
+        #energy {
+          position: relative;
+          padding-right: 2em;
+          width: 170px;
+
+          & > p {
+            margin-left: 7em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "Kcal;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "肠外营养能量:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #energy-PRO {
+          position: relative;
+          padding-right: 1em;
+          width: 100px;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 0;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "PRO:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #energy-FAT {
+          position: relative;
+          padding-right: 1em;
+          width: 100px;
+
+          & > p {
+            margin-left: 2.5em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "FAT:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #energy-CHO {
+          position: relative;
+          padding-right: 1em;
+          width: 100px;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 0;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "CHO:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #pancreaticFluid,
+        #pleuralEffusion {
+          .ant-select {
+            margin-bottom: 0;
+            padding: 0 10px 0 10px;
+          }
+
+          .ant-select-selection--single {
+            margin-bottom: 0;
+            border: none;
+            height: auto;
+          }
+
+          .ant-select-selection--single .ant-select-selection__rendered {
+            margin: 0;
+          }
+
+          .ant-select-arrow {
+            display: none;
+          }
+
+          .ant-select-selection__rendered {
+            line-height: inherit;
+          }
+
+          .ant-select-selection-selected-value {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+
+      .row-4 {
+        #dietarySurvey {
+          position: relative;
+          width: 100%;
+        }
+
+        p {
+          margin-left: 5em;
+          height: 20px;
+          line-height: 20px;
+        }
+
+        #dietarySurvey::before {
+          content: "膳食调查:";
+          font-weight: bold;
+          top: 2px;
+          display: inline-block;
+          position: absolute;
+          left: 5px;
+          text-indent: 0;
+          word-break: keep-all;
+        }
+
+        #inEnergy {
+          position: relative;
+          padding-right: 2em;
+          width: 140px;
+          & > p {
+            margin-left: 5em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "Kcal;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "摄入能量:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #inEnergy-PRO {
+          position: relative;
+          padding-right: 1em;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "PRO:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #inEnergy-FAT {
+          position: relative;
+          padding-right: 1em;
+
+          & > p {
+            margin-left: 2.5em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "FAT:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #inEnergy-CHO {
+          position: relative;
+          padding-right: 1em;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "CHO:";
+            font-weight: bold;
+            top: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #lactoseIntolerance {
+          padding-left: 0.3em;
+          width: 311px;
+          .ant-select {
+            margin-bottom: 0;
+            padding: 0 10px 0 10px;
+          }
+
+          .ant-select-selection--single {
+            margin-bottom: 0;
+            border: none;
+            height: auto;
+          }
+
+          .ant-select-selection--single .ant-select-selection__rendered {
+            margin: 0;
+          }
+
+          .ant-select-arrow {
+            display: none;
+          }
+
+          .ant-select-selection__rendered {
+            line-height: inherit;
+          }
+
+          .ant-select-selection-selected-value {
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+
+      .row-5 {
+        p {
+          height: 20px;
+          line-height: 20px;
+        }
+
+        #height {
+          position: relative;
+          padding-right: 1.2em;
+
+          & > p {
+            margin-left: 2.8em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "cm;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "身高:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #weight {
+          position: relative;
+          padding-right: 1.2em;
+
+          & > p {
+            margin-left: 2.8em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "Kg;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "体重:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #BMI {
+          // padding: 0 0 0 5px;
+          width: 110px;
+          padding-right: 2.1em;
+          position: relative;
+
+          p {
+            // display: inline-block;
+            margin-left: 2.5em;
+          }
+
+          &::before {
+            content: "BMI:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "Kg/㎡;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+        }
+
+        #needEnergy {
+          position: relative;
+          padding-right: 2em;
+          width: 140px;
+          & > p {
+            margin-left: 5em;
+          }
+          &::after {
+            font-size: 12px;
+            content: "Kcal;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "需要能量:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #needEnergy-PRO {
+          position: relative;
+          padding-right: 1em;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "PRO:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #needEnergy-FAT {
+          position: relative;
+          padding-right: 1em;
+
+          & > p {
+            margin-left: 2.5em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "FAT:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #needEnergy-CHO {
+          position: relative;
+          padding-right: 1em;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "g;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "CHO:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #waist {
+          width: 100px;
+          position: relative;
+          padding-right: 2.5em;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "cm;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 1em;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "腰围:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #hip {
+          width: 100px;
+          position: relative;
+          padding-right: 2.5em;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "cm;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 1em;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "臀围:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #upperArm {
+          position: relative;
+          padding-right: 2.5em;
+          width: 115px;
+
+          & > p {
+            margin-left: 4em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "cm;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 1em;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "上臂围:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #lowerLeg {
+          width: 115px;
+          position: relative;
+          padding-right: 2.5em;
+
+          & > p {
+            margin-left: 4em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "cm;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 1em;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "小腿围:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #skinfoldThickness {
+          position: relative;
+          padding-right: 2em;
+          width: 120px;
+
+          & > p {
+            margin-left: 5em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "cm;";
+            top: 1px;
+            display: inline-flex;
+            position: absolute;
+            right: 0.8em;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            top: 1px;
+            content: "皮褶厚度:";
+            font-weight: bold;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+
+        #gripStrength {
+          position: relative;
+          padding-right: 1.5em;
+          width: 90px;
+
+          & > p {
+            margin-left: 3em;
+          }
+
+          &::after {
+            font-size: 12px;
+            content: "Kg;";
+            top: 2px;
+            display: inline-flex;
+            position: absolute;
+            right: 0;
+            text-indent: 0;
+            word-break: keep-all;
+            height: 90%;
+            align-items: center;
+          }
+
+          &::before {
+            content: "握力:";
+            font-weight: bold;
+            top: 1px;
+            display: inline-block;
+            position: absolute;
+            left: 5px;
+            text-indent: 0;
+            word-break: keep-all;
+          }
+        }
+      }
+
+      .row-6 {
+        .ant-select {
+          margin-bottom: 0;
+          padding: 0 0 0 10px;
+        }
+
+        .ant-select-selection--single {
+          margin-bottom: 0;
+          border: none;
+          height: auto;
+        }
+        .ant-checkbox-wrapper + span,
+        .ant-checkbox + span {
+          padding: 0;
+        }
+        .ant-select-selection--single .ant-select-selection__rendered {
+          margin: 0;
+        }
+
+        .ant-select-arrow {
+          display: none;
+        }
+
+        .ant-select-selection-selected-value {
+          line-height: unset;
+          margin: 0;
+        }
+      }
+    }
+    .excel {
+      width: 100%;
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        text-align: left;
+        font-size: 15px;
+        border: 1px solid #000;
+        text-align: center;
+        font-size: 11px;
+        .line {
+          width: 100%;
+          height: 21px;
+          position: relative;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><line x1="0" y1="0" x2="100%" y2="100%" stroke="black" stroke-width="1"/></svg>');
+          .pro {
+            position: absolute;
+            top: 7px;
+            left: 3px;
+          }
+          .date {
+            position: absolute;
+            top: -2px;
+            right: 5px;
+          }
+        }
+        tr {
+          td {
+            border: 1px solid #000;
+            overflow: hidden;
+            .ant-select-selection {
+              border: none;
+            }
+            .ant-select-arrow {
+              display: none;
+            }
+            .ant-select-selection-selected-value {
+              padding-right: 0;
+            }
+            .ant-select-selection--single {
+              height: 20px;
+            }
+            .ant-select-selection__rendered {
+              line-height: 20px;
+            }
+            .ant-select {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+    .pageNum {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      font-size: 12px;
+    }
+  }
+  .ant-select-dropdown {
+    width: auto !important;
+  }
+}

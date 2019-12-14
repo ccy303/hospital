@@ -1,0 +1,17 @@
+.user-info {
+  float: right;
+  color: #ddd;
+  span {
+    margin-right: 20px;
+  }
+}
+.layout-content {
+  margin: 84px 20px 20px;
+  background-image: url("./../assets/bg.svg");
+  background-repeat: no-repeat;
+  background-position: center 110px;
+  background-size: 100%;
+}
+.ant-menu-dark.ant-menu-submenu-popup {
+  top: 61px !important;
+}

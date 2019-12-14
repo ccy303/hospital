@@ -1,0 +1,17 @@
+.operation {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  .search {
+    width: 250px;
+    margin-right: 10px;
+  }
+  .search-info {
+    span:nth-child(1){
+      margin-left: 20px;
+    }
+    span {
+      margin-right: 20px;
+    }
+  }
+}

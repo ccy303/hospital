@@ -1,0 +1,14 @@
+.table-box {
+  width: 80%;
+  margin: 0 auto;
+  .operation {
+  }
+  .table {
+    margin-top: 10px;
+    padding: 10px;
+    background: #fff;
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+      padding: 5px 10px;
+    }
+  }
+}
