@@ -6,7 +6,6 @@ import './search.scss'
 import NutritionScreening from './../nutritionScreening/nutritionScreening'
 import TreatmentSheet from './../treatmentSheet/treatmentSheet'
 const { TabPane } = Tabs;
-const { Search } = Input;
 
 class SearchCom extends React.Component<any, any> {
   state: any = {
