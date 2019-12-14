@@ -106,146 +106,182 @@ export default class Data {
       ['谷草转氨酶', 'AST'], ['尿素', 'UREA'], ['肌酐', 'CREA'], ['尿酸', 'UA'], ['钙', 'Ca'], ['葡萄糖', 'GLU'],
       ['总胆固醇', 'TC'], ['甘油三酯', 'TG']
     ]),
-    _projact: [],
+    _projact: [
+      // [
+      //   '12', '123', '', '', '', '', '', '', '', '',
+      //   '消化道症状', '用法', '液量(mL)', '蛋白质/能量', '费用/天',
+      //   '白细胞', '淋巴细胞', '血红蛋白', '总蛋白', '白蛋白', '前白蛋白', '谷丙转氨酶',
+      //   '谷草转氨酶', '尿素', '肌酐', '尿酸', '钙', '葡萄糖',
+      //   '总胆固醇', '甘油三酯', 'LDL', 'hs-CRP', '', '', '',
+      // ], [
+      //   '123', '124', '', '', '', '', '', '', '', '',
+      //   '消化道症状', '用法', '液量(mL)', '蛋白质/能量', '费用/天',
+      //   '白细胞', '淋巴细胞', '血红蛋白', '总蛋白', '白蛋白', '前白蛋白', '谷丙转氨酶',
+      //   '谷草转氨酶', '尿素', '肌酐', '尿酸', '钙', '葡萄糖',
+      //   '总胆固醇', '甘油三酯', 'LDL', 'hs-CRP', '', '', '',
+      // ]
+    ],
     get project() {
-      return this._projact.length ? this._projact : this.pro_language[this.language]
+      if (this._projact.length) {
+        return this._projact
+      } else {
+        let pro = new Array();
+        pro.push([...this.pro_language[this.language]])
+        return pro
+      }
     },
     set project(val: any) {
-      let pro: any = [];
+      let pro: any = new Array(val.length);
       if (this.language == 'cn') {
-        val.map((val: any, i: any) => {
-          (val || val == '') && !this.pro_language.cn[i] && pro.push(val);
-          val && this.pro_language.cn[i] && pro.push(this.pro_language.cn[i]);
-        })
+        for (let i = 0; i < val.length; i++) {
+          if (!pro[i]) { pro[i] = new Array() }
+          val[i].map((val: any, key: any) => {
+            (val || val == '') && !this.pro_language.cn[key] && pro[i].push(val);
+            val && this.pro_language.cn[key] && pro[i].push(this.pro_language.cn[key]);
+          })
+        }
       } else {
-        val.map((val: any, i: any) => {
-          (val || val == '') && !this.pro_language.en[i] && pro.push(val);
-          val && this.pro_language.en[i] && pro.push(this.pro_language.en[i]);
-        })
+        for (let i = 0; i < val.length; i++) {
+          if (!pro[i]) { pro[i] = new Array() }
+          val[i].map((val: any, key: any) => {
+            (val || val == '') && !this.pro_language.en[key] && pro[i].push(val);
+            val && this.pro_language.en[key] && pro[i].push(this.pro_language.en[key]);
+          })
+        }
+
       }
       this._projact = pro
     },
     get data() {
-      return this._data
+      if (this._data.length) {
+        return this._data
+      } else {
+        return [{}]
+      }
     },
     set data(val: any) {
+      let data = new Array(val.length)
       if (this.language === 'cn') {
-        let obj: any = {};
-        for (let key in val) {
-          let i = 0;
-          for (let [k, v] of this._languageMap.entries()) {
-            i++;
-            if (key === k || key === v) {
-              i = 0;
-              obj[k] = val[key]
-            } else if (i === this._languageMap.size) {
-              obj[key] = val[key]
+        for (let i = 0; i < val.length; i++) {
+          if (!data[i]) {
+            data[i] = new Object();
+          }
+          for (let key in val[i]) {
+            for (let [k, v] of this._languageMap.entries()) {
+              if (key === k || key === v) {
+                data[i][k] = val[i][key]
+              } else {
+                data[i][key] = val[i][key]
+              }
             }
           }
         }
-        this._data = obj
       } else {
-        let obj: any = {};
-        for (let key in val) {
-          if (this._languageMap.get(key)) {
-            obj[this._languageMap.get(key)] = val[key]
-          } else {
-            obj[key] = val[key]
+        for (let i = 0; i < val.length; i++) {
+          for (let key in val[i]) {
+            if (this._languageMap.get(key)) {
+              data[i][this._languageMap.get(key)] = val[i][key]
+            } else {
+              data[i][key] = val[i][key]
+            }
           }
         }
-        this._data = obj
       }
+      this._data = data
     },
-    _data: {
-    }
+    _data: [
+      // {
+      //   "12": "2019-12-01,12|2019-12-02,1|2019-12-03,10",
+      //   "123": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "LDL": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "hs-CRP": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "前白蛋白": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "尿素": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "尿酸": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "总胆固醇": "2019-12-01,12|2019-12-02,1|2019-12-03,3",
+      //   "总蛋白": "2019-12-01,|2019-12-02,|2019-12-03,",
+      //   "消化道症状": "2019-12-01,12|2019-12-02,1|2019-12-03,10",
+      //   "液量(mL)": "2019-12-01,12|2019-12-02,|2019-12-03,",
+      // }, {
+      //   "123": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "124": "2019-12-07,12|2019-12-02,1|2019-12-03,10",
+      //   "LDL": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "hs-CRP": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "前白蛋白": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "尿素": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "尿酸": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "总胆固醇": "2019-12-07,12|2019-12-02,1|2019-12-03,3",
+      //   "总蛋白": "2019-12-07,|2019-12-02,|2019-12-03,",
+      //   "消化道症状": "2019-12-07,12|2019-12-02,1|2019-12-03,10",
+      //   "液量(mL)": "2019-12-07,12|2019-12-02,|2019-12-03,",
+      // }
+    ]
   }
   fontMateTable: any = {}
   fontMateTableData() {
     let fontMateTable: any = {}
     fontMateTable.project = [...this.table.project]
-    let data: any = []
-    this.table.project.map((val: any) => {
-      data.push({
-        key: val,
-        data: [],
-        id: Math.random()
-      })
-    })
-    //处理现有数据
-    if (this.table.data && Object.keys(this.table.data).length) {
-      for (let key in this.table.data) {
-        let index = data.findIndex((val: any) => { // 对应项目数组下标
-          return val.key == key
-        })
-        let arr = this.table.data[key].split('|')
-        let newArr = new Array();
-        for (let i = 0; i < Math.ceil(arr.length / 9); i++) { //切割为每9列一组
-          let sliceArr = []
-          if (arr.length - i * 9 > 9) {
-            sliceArr = arr.slice(i * 9, 9)
-          } else {
-            sliceArr = arr.slice(i * 9)
-          }
-          while (sliceArr.length < 9) {
-            sliceArr.push('')
-          }
-          newArr.push([...sliceArr])
-          fontMateTable.page = i + 1;
+    let tableData: any = []
+    let project_data: any = new Array(this.table.project.length); // 有数据的项目
+    let timerArr: any = new Array(this.table.project.length)
+    let callGetProEnData: any = new Array(this.table.project.length)
+    for (let i = 0; i < this.table.project.length; i++) {
+      let arr: any = [];
+      project_data[i] = Object.keys(this.table.data[i])[0] ? this.table.data[i][Object.keys(this.table.data[i])[0]].split('|') : []
+      project_data[i].forEach((val: any) => {
+        if (!timerArr[i]) {
+          timerArr[i] = new Array()
         }
-        data[index].data = newArr;
-      }
-    } else {
-      data.map((item: any) => {
-        item.data.push(new Array(9).fill(''))
+        timerArr[i].push(val.split(',')[0])
       })
-    }
-    fontMateTable.data = [...data]
-    let project_data = fontMateTable.data.find((val: any) => { return val.data.length > 0 });
-    let timerArr: any = []
-    project_data.data.map((data_val: any) => {
-      let _arr: any = [];
-      let empty_data: any = [];
-      data_val.map((data_item: any) => {
-        _arr.push(data_item.split(',')[0])
-        empty_data.push(`${data_item.split(',')[0]},`)
-      })
-      while (_arr.length < 9) {
-        _arr.push('')
+      if (timerArr[i]) {
+        while (timerArr[i].length < 9) {
+          timerArr[i].push('')
+        }
+      } else {
+        timerArr[i] = new Array()
+        while (timerArr[i].length < 9) {
+          timerArr[i].push('')
+        }
       }
-      while (empty_data.length < 9) {
-        empty_data.push('')
-      }
-      fontMateTable.data.map((data: any) => {
-        data.data.length < project_data.data.length && data.data.push([...empty_data])
-      })
-      timerArr.push([..._arr])
-    })
-    //填写时间
-    fontMateTable.data.map((pro: any) => {
-      pro.data.map((data: any, index: any) => {
-        data.map((dataItem: any, dataItem_i: any) => {
-          let time = dataItem.split(',')[0];
-          !timerArr[index][dataItem_i] && (timerArr[index][dataItem_i] = time)
+      this.table.project[i].forEach((val: any) => {
+        let data = this.table.data[i][val];
+        if (data) {
+          data = data.split('|');
+          while (data.length < 9) {
+            data.push('')
+          }
+        } else {
+          data = new Array(9).fill('')
+        }
+        project_data[i].map((v: any, index: number) => {
+          if (!data[index].split(',')[0]) {
+            data[index] = `${v.split(',')[0]},`
+          }
+        })
+        arr.push({
+          key: val,
+          data: data,
+          id: Math.random()
         })
       })
-    })
+      callGetProEnData[i] = arr.slice(0, 10);
+      tableData.push(arr)
+    }
+    fontMateTable.data = [...tableData]
+    fontMateTable.callGetProEnData = callGetProEnData
     fontMateTable.timerArr = timerArr
-    !fontMateTable.page && (fontMateTable.page = 1)
     this.fontMateTable = fontMateTable
     return fontMateTable
   }
 
   newTable() {
-    let fontMateTable: any = {}
-    fontMateTable.project = [...this.table.project]
-    let data: any = []
-    this.table.project.map((val: any) => {
-      data.push({
-        key: val,
-        data: [],
-        id: Math.random()
-      })
-    })
+    let pro = JSON.parse(JSON.stringify(this.table.project))
+    let data = JSON.parse(JSON.stringify(this.table.data))
+    pro.push([...this.table.pro_language[this.table.language]])
+    data.push(new Object())
+    this.table.project = pro;
+    this.table.data = data;
   }
 
   setData(obj: any) {
@@ -272,29 +308,42 @@ export default class Data {
     delete obj.table;
     delete obj.fontMateTable;
     let project: any = []
-    let data: any = {}
-    fontMateTable.data.map((val: any) => {
-      project.push(val.key)
-      val.key && (data[val.key] = [].concat(...val.data).join('|'))
-    })
+    let data: any = new Array(fontMateTable.data.length);
+    for (let i = 0; i < fontMateTable.data.length; i++) {
+      if (!data[i]) { data[i] = new Object() }
+      fontMateTable.data[i].forEach((val: any) => {
+        if (val.key) {
+          data[i][val.key] = val.data.join('|')
+        }
+      })
+    }
     obj.table = {
       language: this.table.language,
-      project: project,
+      project: fontMateTable.project,
       data: data
     }
+    console.log(JSON.stringify(obj))
     return JSON.stringify(obj)
   }
 
   updataData() {
-    let project: any = []
-    let data: any = {}
-    this.fontMateTable.data.map((val: any) => {
-      project.push(val.key)
-      val.key && (data[val.key] = [].concat(...val.data).join('|'))
-    })
-    this.table = {
-      project: project,
-      data: data
+    let project: any = new Array(this.table.project.length)
+    let data: any = new Array(this.table.data.length)
+    for (let i = 0; i < this.fontMateTable.data.length; i++) {
+      this.fontMateTable.data[i].forEach((val: any) => {
+        if (!project[i]) {
+          project[i] = new Array();
+        }
+        project[i].push(val.key)
+        if (!data[i]) {
+          data[i] = new Object()
+        }
+        if (val.key) {
+          data[i][val.key] = val.data.join('|')
+        }
+      })
     }
+    this.table.project = project
+    this.table.data = data
   }
 }

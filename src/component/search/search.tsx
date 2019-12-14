@@ -11,7 +11,7 @@ class SearchCom extends React.Component<any, any> {
   state: any = {
     type: [],
     searchResult: {},
-    key: '1',
+    key: '3',
     //@ts-ignore
     role: JSON.parse(sessionStorage.getItem('auth')).role,
     indicators: []

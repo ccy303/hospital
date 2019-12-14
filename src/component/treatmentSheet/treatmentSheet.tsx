@@ -64,18 +64,16 @@ export default class TreatmentSheet extends React.Component<any> {
     window.print()
   }
   addNewSheet() {
-    let { data, dataCopy } = this.state
+    let { data } = this.state
     data.updataData()
-    let sheetData = JSON.parse(JSON.stringify(data));
     let timer = this.state.tableData.timerArr;
     let lastPageTimer = timer[timer.length - 1]
     if (!lastPageTimer[lastPageTimer.length - 1]) {
       message.info('当前表格未填满');
       return
     }
-    for (let key in sheetData.table.data) {
-      sheetData.table.data[key] += '||||||||'
-    }
+    data.newTable();
+    let sheetData = JSON.parse(JSON.stringify(data));
     this.setState({
       data: new Data(sheetData, true),
       dataCopy: new Data(sheetData, true),
@@ -88,6 +86,9 @@ export default class TreatmentSheet extends React.Component<any> {
   onInputFun_1(e: any) {
     e.persist()
     let { data } = this.state;
+    if (new RegExp(/[\r\n]/g).test(e.target.innerText)) {
+      e.target.innerText = ''
+    }
     let inputData = e.target.innerText.replace(/(^\s*)|(\s*$)/g, "");
     data[e.target.dataset.id] = inputData
     if (e.target.dataset.id == 'height' || e.target.dataset.id == 'weight') {
@@ -119,6 +120,9 @@ export default class TreatmentSheet extends React.Component<any> {
   onInputFun_2(e: any) {
     e.persist()
     let { data } = this.state
+    if (new RegExp(/[\r\n]/g).test(e.target.innerText)) {
+      e.target.innerText = ''
+    }
     data[e.target.dataset.id][e.target.dataset.target] = e.target.innerText.replace(/(^\s*)|(\s*$)/g, "");;
     let dom = document.querySelectorAll(`[data-id=${e.target.dataset.id}][data-target=${e.target.dataset.target}]`);
     let i = 0;
@@ -169,6 +173,7 @@ export default class TreatmentSheet extends React.Component<any> {
   }
   save() {
     let json = JSON.parse(this.state.data.getPostJson());
+    return
     api.treatmentSheetSave(json, this.props.id).then((res: any) => {
       if (res.data.code == 0) {
         notification.success({
@@ -215,12 +220,12 @@ export default class TreatmentSheet extends React.Component<any> {
   }
   setProEn(arg: any, page: any, colum: any, time: any) {
     let proEn = getProEn(arg)
-    let pro = this.state.tableData.data.find((val: any) => {
+    let pro = this.state.tableData.data[page].find((val: any) => {
       return val.key == '蛋白质/能量' || val.key == 'PRO/EN'
     })
-    pro.data[page][colum] = `${time},${proEn.proSum}/${proEn.energySum}`
+    pro.data[colum] = `${time},${proEn.proSum}/${proEn.energySum}`
     //@ts-ignore
-    let dom = document.querySelectorAll(`[data-proid='${pro.id}']`)[page].parentElement.childNodes[colum + 1]
+    let dom = document.querySelector(`[data-proid='${pro.id}']`).childNodes[colum + 1]
     //@ts-ignore
     dom.innerText = `${proEn.proSum}/${proEn.energySum}`
   }
@@ -302,9 +307,7 @@ export default class TreatmentSheet extends React.Component<any> {
   }
   render() {
     let { data, dataCopy, tableData, identity, lang } = this.state;
-    let page_arr = new Array(tableData.page).fill(Math.random())
-    if (!Object.keys(tableData).length) return <></>
-    let callGetProEnData = tableData.data.slice(0, 10)
+    if (!tableData || !Object.keys(tableData).length) return <></>
     return (
       <div className="treatment-sheet">
         <div className="operation">
@@ -323,7 +326,7 @@ export default class TreatmentSheet extends React.Component<any> {
             <Option value="en">英文</Option>
           </Select>
         </div>
-        {page_arr.map((page: any, page_i: any) => {
+        {tableData.data.map((pageData: any, page_i: any) => {
           return (
             <div key={page_i} className="world">
               <div className="title" data-contenteditable="true" data-id="title" onInput={this.onInputFun_1.bind(this)}>
@@ -387,7 +390,7 @@ export default class TreatmentSheet extends React.Component<any> {
                         <td id="mainDiagnosis">
                           <p
                             data-contenteditable="true"
-                            style={{ marginLeft: '5em', textAlign: 'left', background: dataCopy.mainDiagnosis ? '#FAFAD2' : '' }}
+                            style={{ marginLeft: '5em', textAlign: 'left', background: dataCopy.mainDiagnosis ? '#FAFAD2' : '', minHeight: '20px' }}
                             data-id="mainDiagnosis"
                             onInput={this.onInputFun_1.bind(this)}
                           >
@@ -492,7 +495,7 @@ export default class TreatmentSheet extends React.Component<any> {
                             data-contenteditable="true"
                             data-id="dietarySurvey"
                             onInput={this.onInputFun_1.bind(this)}
-                            style={{ textAlign: 'left', background: dataCopy.dietarySurvey ? '#FAFAD2' : '', height: 'unset' }}
+                            style={{ textAlign: 'left', background: dataCopy.dietarySurvey ? '#FAFAD2' : '', height: 'unset', minHeight: '20px' }}
                           >
                             {dataCopy.dietarySurvey}
                           </p>
@@ -775,7 +778,7 @@ export default class TreatmentSheet extends React.Component<any> {
                           <em className="date">{data.table.language === 'cn' ? `日期` : 'DATE'}</em>
                         </div>
                       </td>
-                      {tableData.timerArr.length && tableData.timerArr[page_i].map((timer_val: any, timer_i: any) => {
+                      {tableData.timerArr[page_i].map((timer_val: any, timer_i: any) => {
                         return (
                           <td data-colum="" key={Math.random()}>
                             <DatePicker
@@ -783,8 +786,8 @@ export default class TreatmentSheet extends React.Component<any> {
                               placeholder=""
                               onChange={(date, dateStr) => {
                                 tableData.timerArr[page_i][timer_i] = dateStr
-                                tableData.data.map((dataObj: any) => {
-                                  dataObj.data[page_i][timer_i] = `${dateStr},`
+                                tableData.data[page_i].map((dataObj: any) => {
+                                  dataObj.data[timer_i] = `${dateStr},`
                                 })
                                 this.setState({ tableData: tableData })
                               }}
@@ -795,57 +798,54 @@ export default class TreatmentSheet extends React.Component<any> {
                     </tr>
                   </thead>
                   <tbody>
-                    {tableData.data.map((data: any, data_i: any) => {
-                      let key = Math.random();
+                    {pageData.map((pageData_item: any, data_i: any) => {
                       return (
                         <tr
-                          key={key}
+                          data-proid={pageData_item.id}
+                          key={pageData_item.id}
                           style={{
-                            borderTop: `${(data.key == '用法' || data.key == 'USAGE') ? '3px solid #000' : ''}`,
-                            borderBottom: `${(data.key == '费用/天' || data.key == '￥/D') ? '3px solid #000' : ''}`,
+                            borderTop: `${(pageData_item.key == '用法' || pageData_item.key == 'USAGE') ? '3px solid #000' : ''}`,
+                            borderBottom: `${(pageData_item.key == '费用/天' || pageData_item.key == '￥/D') ? '3px solid #000' : ''}`,
                           }}>
                           {/* 项目 */}
                           <Popconfirm
                             title="查看趋势？"
                             okText="确定"
                             cancelText="取消"
-                            onConfirm={this.openChart.bind(this, data)}
+                            onConfirm={this.openChart.bind(this, pageData_item)}
                           >
                             <td
-                              data-proid={data.id}
                               data-contenteditable="true"
                               style={{ height: '22px', fontSize: (data.key == 'DI Symptoms') ? '10px' : '11px' }}
                               onInput={(e: any) => {
-                                e.persist()
-                                tableData.data[data_i].key = e.target.innerText;
-                                let dom = document.querySelectorAll(`[data-proid='${e.target.dataset.proid}']`)
-                                let i = 0;
-                                //不同页数中的相同位置填写上对应名称
-                                while (i <= dom.length - 1) {
-                                  // @ts-ignore
-                                  dom[i] != e.target && (dom[i].innerText = e.target.innerText)
-                                  i++
+                                e.persist();
+                                if (new RegExp(/[\r\n]/g).test(e.target.innerText)) {
+                                  e.target.innerText = ''
                                 }
+                                tableData.data[page_i][data_i].key = e.target.innerText;
+                                tableData.project[page_i][data_i] = e.target.innerText;
                               }}
                             >
-                              {data.key}
+                              {pageData_item.key}
                             </td>
                           </Popconfirm>
-                          {data.data.length && data.data[page_i].map((data_item: any, data_item_i: any, arrItem: any) => {
-                            let key = Math.random()
+                          {pageData_item.data.map((data_item: any, data_item_i: any) => {
                             return (
                               <td
+                                key={data_item_i}
                                 style={{
-                                  color: this.renderChechVal(data_item.split(',')[1], data.key),
+                                  color: this.renderChechVal(data_item.split(',')[1], pageData_item.key),
                                   background: data_item.split(',')[1] ? '#FAFAD2' : ''
                                 }}
-                                key={key}
                                 contentEditable={
-                                  tableData.timerArr[page_i][data_item_i] && data.key !== '用法' && data.key !== 'USAGE' ? true : false
+                                  tableData.timerArr[page_i][data_item_i] && pageData_item.key !== '用法' && pageData_item.key !== 'USAGE' ? true : false
                                 }
                                 suppressContentEditableWarning={true}
                                 onInput={(e: any) => {
                                   e.persist()
+                                  if (new RegExp(/[\r\n]/g).test(e.target.innerText)) {
+                                    e.target.innerText = ''
+                                  }
                                   this.checkTdVal(e.target)
                                   let _arr = data_item.split(',');
                                   if (_arr.length == 1 || _arr[0] == '') {
@@ -853,11 +853,11 @@ export default class TreatmentSheet extends React.Component<any> {
                                   }
                                   _arr[1] = isNaN(Number(e.target.innerText)) ? e.target.innerText : Number(e.target.innerText);
                                   e.target.style.background = _arr[1] ? '#FAFAD2' : '#fff'
-                                  arrItem[data_item_i] = _arr.join(',');
+                                  tableData.data[page_i][data_i].data[data_item_i] = _arr.join(',');
                                   //设置蛋白质/能量
-                                  if (callGetProEnData.includes(data)) {
+                                  if (tableData.callGetProEnData[page_i].includes(pageData_item)) {
                                     let arr: any = [];
-                                    callGetProEnData.map((val: any) => {
+                                    tableData.callGetProEnData[page_i].map((val: any) => {
                                       let obj: any = {};
                                       obj.name = val.key;
                                       obj.value = val.data[page_i][data_item_i].split(',')[1];
@@ -867,18 +867,18 @@ export default class TreatmentSheet extends React.Component<any> {
                                   }
                                 }}
                               >
-                                {data.key !== '用法' && data.key !== 'USAGE' && data_item.split(',')[1]}
-                                {(data.key === '用法' || data.key === 'USAGE') &&
+                                {pageData_item.key !== '用法' && pageData_item.key !== 'USAGE' && data_item.split(',')[1]}
+                                {
+                                  (pageData_item.key === '用法' || pageData_item.key === 'USAGE') &&
                                   <Select
-                                    style={{ width: data.data[page_i][data_item_i].split(',')[1] ? 'max-content' : '50px' }}
-                                    defaultValue={data.data[page_i][data_item_i].split(',')[1] || ''}
+                                    style={{ width: data_item.split(',')[1] ? 'max-content' : '50px' }}
+                                    defaultValue={data_item.split(',')[1] || ''}
                                     onChange={(e: any) => {
-                                      let _arr = data.data[page_i][data_item_i].split(',');
+                                      let _arr = data_item.split(',');
                                       _arr[1] = e;
-                                      data.data[page_i][data_item_i] = _arr.join(',');
+                                      tableData.data[page_i][data_i].data[data_item_i] = _arr.join(',');
                                       this.setState({
-                                        data: this.state.data,
-                                        dataCopy: this.state.dataCopy
+                                        tableData: tableData
                                       })
                                     }}
                                   >
