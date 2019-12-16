@@ -11,6 +11,9 @@ export default class Quota extends React.Component {
 		showModel: false,
 		allowSex: false,
 		indicatorId: '',
+		enName: '',
+		zhName: '',
+		unit: '',
 		rangeValue: [
 			{ min: undefined, max: undefined },
 			{ min: undefined, max: undefined }
@@ -96,6 +99,8 @@ export default class Quota extends React.Component {
 		})
 	}
 	add() {
+		console.log(this.state)
+		return
 		let parmas = {
 			hospitalId: this.state.hospitalId,
 			indicatorId: this.state.indicatorId,
@@ -116,7 +121,10 @@ export default class Quota extends React.Component {
 					rangeValue: [
 						{ min: undefined, max: undefined },
 						{ min: undefined, max: undefined }
-					]
+					],
+					enName: '',
+					zhName: '',
+					unit: '',
 				})
 				this.getIndicators(this.state.hospitalId)
 			}
@@ -199,6 +207,9 @@ export default class Quota extends React.Component {
 							showModel: false,
 							updata: false,
 							indicatorId: '',
+							enName: '',
+							zhName: '',
+							unit: '',
 							rangeValue: [
 								{ min: undefined, max: undefined },
 								{ min: undefined, max: undefined }
@@ -209,15 +220,16 @@ export default class Quota extends React.Component {
 					<div className="form">
 						<div className="form-con">
 							<Select
-								value={indicatorId ? indicatorId : '请选择'}
+								value={indicatorId ? indicatorId : '自定义指标'}
 								style={{ width: 200, marginRight: '10px' }}
 								disabled={Boolean(updata)}
 								onChange={(val: any) => {
 									this.setState({
-										indicatorId: val,
+										indicatorId: val === '自定义指标' ? '' : val,
 									})
 								}}
 							>
+								<Option value="自定义指标">自定义指标</Option>
 								{indicators.map((val: any) => {
 									return (
 										<Option
@@ -235,6 +247,40 @@ export default class Quota extends React.Component {
 								<Radio value={true}>区分性别</Radio>
 							</Radio.Group>
 						</div>
+						{!indicatorId && <div className="form-con" style={{ marginTop: '20px' }}>
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+								<Input
+									placeholder="指标名称"
+									style={{ width: '150px' }}
+									onChange={(e: any) => {
+										e.persist()
+										this.setState({
+											zhName: e.target.value
+										})
+									}}
+								/>
+								<Input
+									placeholder="英文缩写"
+									style={{ width: '150px', marginLeft: '5px' }}
+									onChange={(e: any) => {
+										e.persist()
+										this.setState({
+											enName: e.target.value
+										})
+									}}
+								/>
+								<Input
+									placeholder="单位"
+									style={{ width: '150px', marginLeft: '5px' }}
+									onChange={(e: any) => {
+										e.persist()
+										this.setState({
+											unit: e.target.value
+										})
+									}}
+								/>
+							</div>
+						</div>}
 						<div className="form-con" style={{ marginTop: '20px' }}>
 							<div style={{ display: 'flex', alignItems: 'center' }}>
 								{allowSex ? '男：' : ''}
