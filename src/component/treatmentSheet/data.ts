@@ -178,6 +178,9 @@ export default class Data {
         }
       } else {
         for (let i = 0; i < val.length; i++) {
+          if (!data[i]) {
+            data[i] = new Object();
+          }
           for (let key in val[i]) {
             if (this._languageMap.get(key)) {
               data[i][this._languageMap.get(key)] = val[i][key]

@@ -173,7 +173,6 @@ export default class TreatmentSheet extends React.Component<any> {
   }
   save() {
     let json = JSON.parse(this.state.data.getPostJson());
-    return
     api.treatmentSheetSave(json, this.props.id).then((res: any) => {
       if (res.data.code == 0) {
         notification.success({
@@ -819,7 +818,7 @@ export default class TreatmentSheet extends React.Component<any> {
                               style={{ height: '22px', fontSize: (data.key == 'DI Symptoms') ? '10px' : '11px' }}
                               onInput={(e: any) => {
                                 e.persist();
-                                if (new RegExp(/[\r\n]/g).test(e.target.innerText)) {
+                                if (new RegExp(/[\r\n]/g).test(e.target.innerText) && e.target.innerText == '\n') {
                                   e.target.innerText = ''
                                 }
                                 tableData.data[page_i][data_i].key = e.target.innerText;
@@ -843,7 +842,7 @@ export default class TreatmentSheet extends React.Component<any> {
                                 suppressContentEditableWarning={true}
                                 onInput={(e: any) => {
                                   e.persist()
-                                  if (new RegExp(/[\r\n]/g).test(e.target.innerText)) {
+                                  if (new RegExp(/[\r\n]/g).test(e.target.innerText) && e.target.innerText == '\n') {
                                     e.target.innerText = ''
                                   }
                                   this.checkTdVal(e.target)
@@ -860,7 +859,7 @@ export default class TreatmentSheet extends React.Component<any> {
                                     tableData.callGetProEnData[page_i].map((val: any) => {
                                       let obj: any = {};
                                       obj.name = val.key;
-                                      obj.value = val.data[page_i][data_item_i].split(',')[1];
+                                      obj.value = val.data[data_item_i].split(',')[1];
                                       arr.push(obj)
                                     })
                                     this.setProEn(arr, page_i, data_item_i, tableData.timerArr[page_i][data_item_i])
