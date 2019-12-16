@@ -293,6 +293,9 @@ class Api extends Fetch {
     if (this.identity === 3) {
       url = `/hospital-admin/user/${id}/risk-screening?token=${token}`;
     }
+    if (this.identity === 2) {
+      url = `/hospital-editor/user/${id}/risk-screening?token=${token}`;
+    }
     return this.fetch('get', url)
   }
 

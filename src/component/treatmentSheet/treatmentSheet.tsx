@@ -194,13 +194,12 @@ export default class TreatmentSheet extends React.Component<any> {
     let pro = dom.parentElement.firstChild.innerText;
     let indicatorsVal = indicators.find((val: any) => { return val.enName === pro || val.zhName === pro })
     if (!indicatorsVal || isNaN(inputVal)) return
-    if (inputVal > indicatorsVal.rangeValue[index].min) {
+    if (inputVal > indicatorsVal.rangeValue[index].max) {
       dom.style.color = '#f00'
-      return
-    }
-    if (inputVal < indicatorsVal.rangeValue[index].max) {
+    } else if (inputVal < indicatorsVal.rangeValue[index].min) {
       dom.style.color = '#32CD32'
-      return
+    } else {
+      dom.style.color = '#000'
     }
   }
   //渲染时时检查值，赋值颜色
@@ -211,11 +210,12 @@ export default class TreatmentSheet extends React.Component<any> {
     let indicatorsVal = indicators.find((val: any) => { return val.enName === pro || val.zhName === pro })
     if (!indicatorsVal || isNaN(inputVal)) return '#000'
     if (indicatorsVal.rangeValue.length === 1) { index = 0 }
-    if (inputVal > indicatorsVal.rangeValue[index].min) {
+    if (inputVal > indicatorsVal.rangeValue[index].max) {
       return '#f00'
-    }
-    if (inputVal < indicatorsVal.rangeValue[index].max) {
+    } else if (inputVal < indicatorsVal.rangeValue[index].min) {
       return '#32CD32'
+    } else {
+      return '#000'
     }
   }
   setProEn(arg: any, page: any, colum: any, time: any) {

@@ -89,7 +89,7 @@ export default class NutritionScreening extends React.Component<any, any> {
     return (
       <div className="nutrition-screening" id="print">
         <div className="operation">
-          {identity !== 1 && identity !== 3 && <Button type="primary" style={{ marginRight: '10px' }} onClick={this.save.bind(this)}>保存</Button>}
+          {identity !== 1 && identity !== 3 && identity !== 2 && <Button type="primary" style={{ marginRight: '10px' }} onClick={this.save.bind(this)}>保存</Button>}
           <Button type="primary" onClick={this.print.bind(this)}>打印</Button>
         </div>
         <div className="world">

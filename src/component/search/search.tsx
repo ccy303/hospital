@@ -11,7 +11,7 @@ class SearchCom extends React.Component<any, any> {
   state: any = {
     type: [],
     searchResult: {},
-    key: '3',
+    key: '1',
     //@ts-ignore
     role: JSON.parse(sessionStorage.getItem('auth')).role,
     indicators: []
@@ -53,7 +53,7 @@ class SearchCom extends React.Component<any, any> {
       }
     })
     this.state.role.identity === 2 && this.setState({
-      key: '2'
+      key: '1'
     })
   }
   callback(key: any) {
@@ -78,7 +78,7 @@ class SearchCom extends React.Component<any, any> {
           </div>
         </div>
         <Tabs defaultActiveKey={key} onChange={this.callback.bind(this)}>
-          <TabPane tab="营养筛查" key="1" disabled={role.identity === 2}>
+          <TabPane tab="营养筛查" key="1">
             <NutritionScreening id={this.props.match.params.id} info={searchResult} />
           </TabPane>
           <TabPane tab="营养评估" key="2" disabled>
