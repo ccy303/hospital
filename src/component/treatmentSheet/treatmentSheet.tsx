@@ -60,6 +60,9 @@ export default class TreatmentSheet extends React.Component<any> {
       }
     })
   }
+  componentWillReceiveProps(props: any) {
+    console.log(props)
+  }
   print() {
     window.print()
   }
@@ -779,7 +782,7 @@ export default class TreatmentSheet extends React.Component<any> {
                       </td>
                       {tableData.timerArr[page_i].map((timer_val: any, timer_i: any) => {
                         return (
-                          <td data-colum="" key={Math.random()}>
+                          <td key={`${timer_val}${timer_i}`}>
                             <DatePicker
                               defaultValue={timer_val ? moment(timer_val) : undefined}
                               placeholder=""
@@ -801,7 +804,7 @@ export default class TreatmentSheet extends React.Component<any> {
                       return (
                         <tr
                           data-proid={pageData_item.id}
-                          key={pageData_item.id}
+                          key={data_i}
                           style={{
                             borderTop: `${(pageData_item.key == '用法' || pageData_item.key == 'USAGE') ? '3px solid #000' : ''}`,
                             borderBottom: `${(pageData_item.key == '费用/天' || pageData_item.key == '￥/D') ? '3px solid #000' : ''}`,
@@ -831,7 +834,7 @@ export default class TreatmentSheet extends React.Component<any> {
                           {pageData_item.data.map((data_item: any, data_item_i: any) => {
                             return (
                               <td
-                                key={data_item_i}
+                                key={`${data_item}${data_item_i}`}
                                 style={{
                                   color: this.renderChechVal(data_item.split(',')[1], pageData_item.key),
                                   background: data_item.split(',')[1] ? '#FAFAD2' : ''

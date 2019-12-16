@@ -11,7 +11,7 @@ class SearchCom extends React.Component<any, any> {
   state: any = {
     type: [],
     searchResult: {},
-    key: '3',
+    key: '1',
     //@ts-ignore
     role: JSON.parse(sessionStorage.getItem('auth')).role,
     indicators: []
@@ -53,7 +53,7 @@ class SearchCom extends React.Component<any, any> {
       }
     })
     this.state.role.identity === 2 && this.setState({
-      key: '2'
+      key: '3'
     })
   }
   callback(key: any) {
