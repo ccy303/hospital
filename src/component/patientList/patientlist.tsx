@@ -52,6 +52,14 @@ class PatientListCom extends React.Component<any> {
       align: 'center' as any,
     },
     {
+      title: '筛查得分',
+      dataIndex: 'riskScreeningScore',
+      key: 'riskScreeningScore',
+      ortDirections: ['descend', 'ascend'],
+      sorter: (a: any, b: any) => a.riskScreeningScore - b.riskScreeningScore,
+      align: 'center' as any,
+    },
+    {
       title: '操作',
       key: 'action',
       align: 'center' as any,

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form, Input, Select, Button, } from 'antd';
 import Api from '../../client/api';
 import { Tabs } from 'antd';
 import './search.scss'
@@ -53,7 +52,7 @@ class SearchCom extends React.Component<any, any> {
       }
     })
     this.state.role.identity === 2 && this.setState({
-      key: '3'
+      key: '1'
     })
   }
   callback(key: any) {
@@ -78,7 +77,7 @@ class SearchCom extends React.Component<any, any> {
           </div>
         </div>
         <Tabs defaultActiveKey={key} onChange={this.callback.bind(this)}>
-          <TabPane tab="营养筛查" key="1" disabled={role.identity === 2}>
+          <TabPane tab="营养筛查" key="1">
             <NutritionScreening id={this.props.match.params.id} info={searchResult} />
           </TabPane>
           <TabPane tab="营养评估" key="2" disabled>

@@ -325,7 +325,6 @@ export default class Data {
       project: fontMateTable.project,
       data: data
     }
-    console.log(JSON.stringify(obj))
     return JSON.stringify(obj)
   }
 
