@@ -99,8 +99,6 @@ export default class Quota extends React.Component {
 		})
 	}
 	add() {
-		console.log(this.state)
-		return
 		let parmas = {
 			hospitalId: this.state.hospitalId,
 			indicatorId: this.state.indicatorId,
@@ -108,6 +106,11 @@ export default class Quota extends React.Component {
 			maleMaxValue: this.state.rangeValue[0].max,
 			femaleMinValue: this.state.allowSex ? this.state.rangeValue[1].min : this.state.rangeValue[0].min,
 			femaleMaxValue: this.state.allowSex ? this.state.rangeValue[1].max : this.state.rangeValue[0].max,
+			otherIndicator: {
+				enName: this.state.enName,
+				zhName: this.state.zhName,
+				unit: this.state.unit,
+			}
 		}
 		Api.setIndicator(parmas).then((res: any) => {
 			if (res.data.code == 0) {
